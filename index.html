@@ -125,8 +125,9 @@
       <input type="number" id="inBedrag" placeholder="€ 0,00" min="0" step="0.01" inputmode="decimal">
       <select id="inFreq">
         <option value="maand">Per maand</option>
-        <option value="kwartaal">Per kwartaal</option>
         <option value="week">Per week</option>
+        <option value="4weken">Per 4 weken</option>
+        <option value="kwartaal">Per kwartaal</option>
       </select>
       <button id="btnInkomst">＋ Toevoegen</button>
     </div>
@@ -144,8 +145,9 @@
       <input type="number" id="uitBedrag" placeholder="€ 0,00" min="0" step="0.01" inputmode="decimal">
       <select id="uitFreq">
         <option value="maand">Per maand</option>
-        <option value="kwartaal">Per kwartaal</option>
         <option value="week">Per week</option>
+        <option value="4weken">Per 4 weken</option>
+        <option value="kwartaal">Per kwartaal</option>
       </select>
       <button id="btnUitgave">＋ Toevoegen</button>
     </div>
@@ -179,6 +181,7 @@
   function perMaand(bedrag, freq) {
     if (freq === 'kwartaal') return bedrag / 3;
     if (freq === 'week') return (bedrag * 52) / 12;
+    if (freq === '4weken') return (bedrag * 13) / 12;
     return bedrag;
   }
 
@@ -194,7 +197,7 @@
       totIn += perMaand(bedrag, freq);
       // Update per-maand label
       var pm = rij.querySelector('.rij-per-maand');
-      if (freq === 'kwartaal' || freq === 'week') {
+      if (freq === 'kwartaal' || freq === 'week' || freq === '4weken') {
         pm.textContent = '→ ' + fmt(perMaand(bedrag, freq)) + '/mnd';
       } else {
         pm.textContent = '';
@@ -205,7 +208,7 @@
       var freq   = rij.querySelector('.freq-select').value;
       totUit += perMaand(bedrag, freq);
       var pm = rij.querySelector('.rij-per-maand');
-      if (freq === 'kwartaal' || freq === 'week') {
+      if (freq === 'kwartaal' || freq === 'week' || freq === '4weken') {
         pm.textContent = '→ ' + fmt(perMaand(bedrag, freq)) + '/mnd';
       } else {
         pm.textContent = '';
@@ -279,6 +282,7 @@
       '<select class="freq-select">' +
         '<option value="maand"' + (r.freq==='maand'?' selected':'') + '>Per maand</option>' +
         '<option value="week"' + (r.freq==='week'?' selected':'') + '>Per week</option>' +
+        '<option value="4weken"' + (r.freq==='4weken'?' selected':'') + '>Per 4 weken</option>' +
         '<option value="kwartaal"' + (r.freq==='kwartaal'?' selected':'') + '>Per kwartaal</option>' +
       '</select>' +
       '<div class="rij-per-maand">' + pmTxt + '</div>' +
@@ -403,7 +407,7 @@
         head: [['Inkomsten','Frequentie','Bedrag','Per maand']],
         body: data['in'].map(function(r) {
           var pm = perMaand(r.bedrag, r.freq||'maand');
-          var freqLabel = r.freq==='kwartaal' ? 'Per kwartaal' : r.freq==='week' ? 'Per week' : 'Per maand';
+          var freqLabel = r.freq==='kwartaal' ? 'Per kwartaal' : r.freq==='week' ? 'Per week' : r.freq==='4weken' ? 'Per 4 weken' : 'Per maand';
           return [
             r.naam,
             freqLabel,
@@ -428,7 +432,7 @@
         head: [['Uitgaven','Frequentie','Bedrag','Per maand']],
         body: data['uit'].map(function(r) {
           var pm = perMaand(r.bedrag, r.freq||'maand');
-          var freqLabel = r.freq==='kwartaal' ? 'Per kwartaal' : r.freq==='week' ? 'Per week' : 'Per maand';
+          var freqLabel = r.freq==='kwartaal' ? 'Per kwartaal' : r.freq==='week' ? 'Per week' : r.freq==='4weken' ? 'Per 4 weken' : 'Per maand';
           return [
             r.naam,
             freqLabel,
