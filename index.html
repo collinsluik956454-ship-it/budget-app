@@ -315,9 +315,13 @@
     });
     document.querySelectorAll('.del-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
+        slaVanDOM();
+        var type = btn.dataset.type;
+        var id   = parseInt(btn.dataset.id);
         var data = laad();
-        data[btn.dataset.type] = data[btn.dataset.type].filter(function(r) { return r.id !== parseInt(btn.dataset.id); });
-        sla(data); teken();
+        data[type] = data[type].filter(function(r) { return r.id !== id; });
+        sla(data);
+        teken();
       });
     });
   }
@@ -373,34 +377,33 @@
   }
 
   function slaVanDOM() {
+    var huidig = laad();
     var data = { in: [], uit: [] };
+
     document.querySelectorAll('.rij-in').forEach(function(rij) {
-      var naamEl = rij.querySelector('.naam-cel');
-      var naam = naamEl ? naamEl.textContent : '';
-      // get cat from existing data
       var id = parseInt(rij.dataset.id);
-      var bestaand = laad()['in'].find(function(r) { return r.id === id; });
+      var bestaand = huidig['in'].find(function(r) { return r.id === id; }) || {};
       data['in'].push({
         id: id,
-        naam: naam,
+        naam: bestaand.naam || '',
         bedrag: parseFloat(rij.querySelector('.b-input').value) || 0,
         freq: rij.querySelector('.freq-select').value,
-        cat: bestaand ? bestaand.cat : ''
+        cat: bestaand.cat || ''
       });
     });
+
     document.querySelectorAll('.rij-uit').forEach(function(rij) {
-      var naamEl = rij.querySelector('.naam-cel');
-      var naam = naamEl ? naamEl.textContent.replace(/\[.*?\]/g,'').trim() : '';
       var id = parseInt(rij.dataset.id);
-      var bestaand = laad()['uit'].find(function(r) { return r.id === id; });
+      var bestaand = huidig['uit'].find(function(r) { return r.id === id; }) || {};
       data['uit'].push({
         id: id,
-        naam: naam,
+        naam: bestaand.naam || '',
         bedrag: parseFloat(rij.querySelector('.b-input').value) || 0,
         freq: rij.querySelector('.freq-select').value,
-        cat: bestaand ? bestaand.cat : ''
+        cat: bestaand.cat || ''
       });
     });
+
     sla(data);
   }
 
