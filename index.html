@@ -11,7 +11,7 @@
   :root {
     --bg: #13151a; --kaart: #1c1f26; --rand: #2a2f3d;
     --tekst: #e2e4ec; --zacht: #7a7f92;
-    --groen: #1ec87e; --rood: #f04848; --blauw: #4f8ef7;
+    --groen: #1ec87e; --rood: #f04848; --blauw: #4f8ef7; --oranje: #f5a623;
   }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--tekst); min-height: 100vh; padding-bottom: 3rem; }
 
@@ -23,11 +23,10 @@
 
   .pagina { max-width: 700px; margin: 0 auto; padding: 1.25rem 1rem; display: flex; flex-direction: column; gap: 1rem; }
 
-  /* Saldo balk */
   .saldo-balk { background: var(--kaart); border: 1px solid var(--rand); border-radius: 14px; padding: 1.25rem 1.5rem; display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; }
   .saldo-hoofd { flex: 1; min-width: 140px; }
   .saldo-label { font-size: 0.7rem; color: var(--zacht); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.2rem; }
-  .saldo-bedrag { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; }
+  .saldo-bedrag { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em; transition: color 0.2s; }
   .saldo-bedrag.ok   { color: var(--groen); }
   .saldo-bedrag.over { color: var(--rood); }
   .saldo-bedrag.nul  { color: var(--zacht); }
@@ -38,7 +37,6 @@
   .mini-waarde.groen { color: var(--groen); }
   .mini-waarde.rood  { color: var(--rood); }
 
-  /* Secties */
   .sectie { background: var(--kaart); border: 1px solid var(--rand); border-radius: 14px; overflow: hidden; }
   .sectie-header { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--rand); }
   .sectie-titel { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
@@ -48,36 +46,40 @@
   .sectie-totaal.groen { color: var(--groen); }
   .sectie-totaal.rood  { color: var(--rood); }
 
+  /* Toevoegblok */
+  .toevoeg-blok { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--rand); background: #161920; }
+  .toevoeg-blok input[type="text"] { flex: 1; min-width: 120px; background: var(--kaart); border: 1px solid var(--rand); border-radius: 7px; padding: 0.55rem 0.75rem; color: var(--tekst); font-size: 0.9rem; outline: none; }
+  .toevoeg-blok input[type="text"]:focus { border-color: var(--blauw); }
+  .toevoeg-blok input[type="number"] { width: 95px; background: var(--kaart); border: 1px solid var(--rand); border-radius: 7px; padding: 0.55rem 0.75rem; color: var(--tekst); font-size: 0.9rem; outline: none; text-align: right; }
+  .toevoeg-blok input[type="number"]:focus { border-color: var(--blauw); }
+  .toevoeg-blok select { background: var(--kaart); border: 1px solid var(--rand); border-radius: 7px; padding: 0.55rem 0.6rem; color: var(--tekst); font-size: 0.85rem; outline: none; cursor: pointer; -webkit-appearance: none; }
+  .toevoeg-blok select:focus { border-color: var(--blauw); }
+  .toevoeg-blok button { background: var(--blauw); border: none; color: #fff; border-radius: 7px; padding: 0.55rem 1rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .toevoeg-blok button:hover { opacity: 0.85; }
+
   /* Rijen */
-  .rij { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.1rem; border-bottom: 1px solid var(--rand); }
+  .rij { display: flex; align-items: center; gap: 0.6rem; padding: 0.7rem 1rem; border-bottom: 1px solid var(--rand); flex-wrap: wrap; }
   .rij:last-child { border-bottom: none; }
-  .rij-naam { flex: 1; }
-  .rij-naam input { background: transparent; border: none; color: var(--tekst); font-size: 0.95rem; width: 100%; outline: none; }
-  .rij-naam input::placeholder { color: var(--zacht); }
-  .rij-bedrag input {
-    background: #161920; border: 1px solid var(--rand); border-radius: 7px;
-    padding: 0.45rem 0.65rem; color: var(--tekst); font-size: 0.95rem;
-    width: 110px; outline: none; text-align: right; transition: border-color 0.15s;
-  }
+  .rij-naam { flex: 1; min-width: 100px; font-size: 0.95rem; }
+  .rij-per-maand { font-size: 0.8rem; color: var(--zacht); min-width: 90px; text-align: right; }
+  .rij-bedrag input { background: #161920; border: 1px solid var(--rand); border-radius: 7px; padding: 0.4rem 0.6rem; color: var(--tekst); font-size: 0.9rem; width: 95px; outline: none; text-align: right; }
   .rij-bedrag input:focus { border-color: var(--blauw); }
+  .freq-badge { font-size: 0.7rem; padding: 0.2rem 0.45rem; border-radius: 5px; font-weight: 600; white-space: nowrap; }
+  .freq-badge.maand   { background: rgba(79,142,247,0.15); color: var(--blauw); }
+  .freq-badge.kwartaal { background: rgba(245,166,35,0.15); color: var(--oranje); }
+  .freq-select { background: #161920; border: 1px solid var(--rand); border-radius: 6px; padding: 0.3rem 0.4rem; color: var(--tekst); font-size: 0.78rem; outline: none; cursor: pointer; -webkit-appearance: none; }
+  .freq-select:focus { border-color: var(--blauw); }
   .del-btn { background: none; border: none; color: var(--rand); cursor: pointer; font-size: 1rem; transition: color 0.15s; flex-shrink: 0; }
   .del-btn:hover { color: var(--rood); }
 
-  /* Toevoeg rij */
-  .toevoeg-rij { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 1.1rem; }
-  .toevoeg-rij input { background: transparent; border: none; color: var(--zacht); font-size: 0.9rem; flex: 1; outline: none; }
-  .toevoeg-rij input::placeholder { color: var(--rand); }
-  .plus-btn { background: none; border: 1px solid var(--rand); color: var(--zacht); border-radius: 6px; width: 28px; height: 28px; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .plus-btn:hover { background: var(--rand); color: var(--tekst); }
+  .leeg-rij { padding: 0.75rem 1rem; color: var(--zacht); font-size: 0.85rem; font-style: italic; }
 
-  /* Acties */
-  .acties { display: flex; gap: 0.5rem; }
+  .acties { display: flex; gap: 0.5rem; flex-wrap: wrap; }
   .actie-knop { padding: 0.65rem 1rem; border-radius: 8px; border: 1px solid var(--rand); background: transparent; color: var(--zacht); font-size: 0.82rem; cursor: pointer; transition: all 0.15s; }
   .actie-knop:hover { background: var(--rand); color: var(--tekst); }
   .actie-knop.pdf { border-color: var(--blauw); color: var(--blauw); }
   .actie-knop.pdf:hover { background: rgba(79,142,247,0.1); }
 
-  /* Toast */
   .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); background: #2a2f3d; color: var(--tekst); padding: 0.65rem 1.25rem; border-radius: 8px; font-size: 0.85rem; font-weight: 500; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 99; white-space: nowrap; }
   .toast.zichtbaar { opacity: 1; }
 </style>
@@ -87,18 +89,17 @@
 <header>
   <h1>📋 Budgetplan</h1>
   <div class="maand-nav">
-    <button class="nav-btn" onclick="wisselMaand(-1)">‹</button>
+    <button class="nav-btn" id="btnVorig">‹</button>
     <span id="maandLabel" style="min-width:130px;text-align:center"></span>
-    <button class="nav-btn" onclick="wisselMaand(1)">›</button>
+    <button class="nav-btn" id="btnVolgend">›</button>
   </div>
 </header>
 
 <div class="pagina">
 
-  <!-- Saldo -->
   <div class="saldo-balk">
     <div class="saldo-hoofd">
-      <div class="saldo-label">Saldo</div>
+      <div class="saldo-label">Wat je overhoudt per maand</div>
       <div class="saldo-bedrag nul" id="saldoBedrag">€ 0,00</div>
     </div>
     <div class="mini-stats">
@@ -119,12 +120,16 @@
       <span class="sectie-titel groen">＋ Inkomsten</span>
       <span class="sectie-totaal groen" id="labelIn">€ 0,00</span>
     </div>
-    <div id="lijstIn"></div>
-    <div class="toevoeg-rij">
-      <input type="text" id="nieuwInNaam" placeholder="Omschrijving toevoegen..." maxlength="50"
-        onkeydown="if(event.key==='Enter') voegToe('in')">
-      <button class="plus-btn" onclick="voegToe('in')">＋</button>
+    <div class="toevoeg-blok">
+      <input type="text" id="inNaam" placeholder="Omschrijving (bv. Salaris)">
+      <input type="number" id="inBedrag" placeholder="€ 0,00" min="0" step="0.01" inputmode="decimal">
+      <select id="inFreq">
+        <option value="maand">Per maand</option>
+        <option value="kwartaal">Per kwartaal</option>
+      </select>
+      <button id="btnInkomst">＋ Toevoegen</button>
     </div>
+    <div id="lijstIn"><div class="leeg-rij">Nog geen inkomsten toegevoegd.</div></div>
   </div>
 
   <!-- Uitgaven -->
@@ -133,18 +138,21 @@
       <span class="sectie-titel rood">－ Uitgaven</span>
       <span class="sectie-totaal rood" id="labelUit">€ 0,00</span>
     </div>
-    <div id="lijstUit"></div>
-    <div class="toevoeg-rij">
-      <input type="text" id="nieuwUitNaam" placeholder="Omschrijving toevoegen..." maxlength="50"
-        onkeydown="if(event.key==='Enter') voegToe('uit')">
-      <button class="plus-btn" onclick="voegToe('uit')">＋</button>
+    <div class="toevoeg-blok">
+      <input type="text" id="uitNaam" placeholder="Omschrijving (bv. Huur)">
+      <input type="number" id="uitBedrag" placeholder="€ 0,00" min="0" step="0.01" inputmode="decimal">
+      <select id="uitFreq">
+        <option value="maand">Per maand</option>
+        <option value="kwartaal">Per kwartaal</option>
+      </select>
+      <button id="btnUitgave">＋ Toevoegen</button>
     </div>
+    <div id="lijstUit"><div class="leeg-rij">Nog geen uitgaven toegevoegd.</div></div>
   </div>
 
-  <!-- Acties -->
   <div class="acties">
-    <button class="actie-knop pdf" onclick="exportPDF()">📄 PDF Export</button>
-    <button class="actie-knop" onclick="kopieerVorig()">📋 Kopieer vorige maand</button>
+    <button class="actie-knop pdf" id="btnPDF">📄 PDF Export</button>
+    <button class="actie-knop" id="btnKopieer">📋 Kopieer vorige maand</button>
   </div>
 
 </div>
@@ -152,204 +160,295 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const MAANDEN = ['Januari','Februari','Maart','April','Mei','Juni',
+(function() {
+  var MAANDEN = ['Januari','Februari','Maart','April','Mei','Juni',
                  'Juli','Augustus','September','Oktober','November','December'];
+  var jaar  = new Date().getFullYear();
+  var maand = new Date().getMonth();
 
-let huidigJaar  = new Date().getFullYear();
-let huidigMaand = new Date().getMonth();
+  function sleutel() { return 'bp3-' + jaar + '-' + maand; }
+  function laad() {
+    try { return JSON.parse(localStorage.getItem(sleutel()) || '{"in":[],"uit":[]}'); }
+    catch(e) { return { in: [], uit: [] }; }
+  }
+  function sla(data) { localStorage.setItem(sleutel(), JSON.stringify(data)); }
 
-function sleutel() { return `budgetplan2-${huidigJaar}-${huidigMaand}`; }
-function laad() { return JSON.parse(localStorage.getItem(sleutel()) || '{"in":[],"uit":[]}'); }
-function sla(data) { localStorage.setItem(sleutel(), JSON.stringify(data)); }
+  // Bedrag per maand berekenen
+  function perMaand(bedrag, freq) {
+    return freq === 'kwartaal' ? bedrag / 3 : bedrag;
+  }
 
-function wisselMaand(r) {
-  huidigMaand += r;
-  if (huidigMaand > 11) { huidigMaand = 0; huidigJaar++; }
-  if (huidigMaand < 0)  { huidigMaand = 11; huidigJaar--; }
-  teken();
-}
+  function fmt(n) {
+    return '€\u00a0' + Math.abs(n).toFixed(2).replace('.', ',');
+  }
 
-function fmt(n) {
-  return '€\u00a0' + n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
+  function herbereken() {
+    var totIn = 0, totUit = 0;
+    document.querySelectorAll('.rij-in').forEach(function(rij) {
+      var bedrag = parseFloat(rij.querySelector('.b-input').value) || 0;
+      var freq   = rij.querySelector('.freq-select').value;
+      totIn += perMaand(bedrag, freq);
+      // Update per-maand label
+      var pm = rij.querySelector('.rij-per-maand');
+      if (freq === 'kwartaal') {
+        pm.textContent = '→ ' + fmt(perMaand(bedrag, freq)) + '/mnd';
+      } else {
+        pm.textContent = '';
+      }
+    });
+    document.querySelectorAll('.rij-uit').forEach(function(rij) {
+      var bedrag = parseFloat(rij.querySelector('.b-input').value) || 0;
+      var freq   = rij.querySelector('.freq-select').value;
+      totUit += perMaand(bedrag, freq);
+      var pm = rij.querySelector('.rij-per-maand');
+      if (freq === 'kwartaal') {
+        pm.textContent = '→ ' + fmt(perMaand(bedrag, freq)) + '/mnd';
+      } else {
+        pm.textContent = '';
+      }
+    });
 
-function voegToe(type) {
-  const inputEl = document.getElementById(type === 'in' ? 'nieuwInNaam' : 'nieuwUitNaam');
-  const naam = inputEl.value.trim();
-  if (!naam) return;
-  const data = laad();
-  data[type].push({ id: Date.now(), naam, bedrag: 0 });
-  sla(data);
-  inputEl.value = '';
-  teken();
-  // Focus terug op invoerveld
-  setTimeout(() => inputEl.focus(), 50);
-}
+    var saldo = totIn - totUit;
+    document.getElementById('totaalIn').textContent  = fmt(totIn);
+    document.getElementById('totaalUit').textContent = fmt(totUit);
+    document.getElementById('labelIn').textContent   = fmt(totIn);
+    document.getElementById('labelUit').textContent  = fmt(totUit);
+    var el = document.getElementById('saldoBedrag');
+    el.textContent = (saldo < 0 ? '- ' : '') + fmt(saldo);
+    el.className = 'saldo-bedrag ' + (totIn===0&&totUit===0 ? 'nul' : saldo>=0 ? 'ok' : 'over');
+  }
 
-function verwijder(type, id) {
-  const data = laad();
-  data[type] = data[type].filter(r => r.id !== id);
-  sla(data);
-  teken();
-}
+  function slaHuidigOp() {
+    var data = { in: [], uit: [] };
+    document.querySelectorAll('.rij-in').forEach(function(rij) {
+      data['in'].push({
+        id: parseInt(rij.dataset.id),
+        naam: rij.querySelector('.naam-cel').textContent,
+        bedrag: parseFloat(rij.querySelector('.b-input').value) || 0,
+        freq: rij.querySelector('.freq-select').value
+      });
+    });
+    document.querySelectorAll('.rij-uit').forEach(function(rij) {
+      data['uit'].push({
+        id: parseInt(rij.dataset.id),
+        naam: rij.querySelector('.naam-cel').textContent,
+        bedrag: parseFloat(rij.querySelector('.b-input').value) || 0,
+        freq: rij.querySelector('.freq-select').value
+      });
+    });
+    sla(data);
+  }
 
-function updateNaam(type, id, waarde) {
-  const data = laad();
-  const rij = data[type].find(r => r.id === id);
-  if (rij) { rij.naam = waarde; sla(data); tekenTotalen(data); }
-}
+  function verwijder(type, id) {
+    var data = laad();
+    data[type] = data[type].filter(function(r) { return r.id !== id; });
+    sla(data);
+    teken();
+  }
 
-function updateBedrag(type, id, waarde) {
-  const data = laad();
-  const rij = data[type].find(r => r.id === id);
-  if (rij) { rij.bedrag = parseFloat(waarde) || 0; sla(data); tekenTotalen(data); }
-}
+  function voegToe(type) {
+    var naamEl   = document.getElementById(type === 'in' ? 'inNaam'   : 'uitNaam');
+    var bedragEl = document.getElementById(type === 'in' ? 'inBedrag' : 'uitBedrag');
+    var freqEl   = document.getElementById(type === 'in' ? 'inFreq'   : 'uitFreq');
+    var naam   = naamEl.value.trim();
+    var bedrag = parseFloat(bedragEl.value) || 0;
+    var freq   = freqEl.value;
+    if (!naam) { naamEl.focus(); return; }
+    var data = laad();
+    data[type].push({ id: Date.now(), naam: naam, bedrag: bedrag, freq: freq });
+    sla(data);
+    naamEl.value   = '';
+    bedragEl.value = '';
+    freqEl.value   = 'maand';
+    naamEl.focus();
+    teken();
+  }
 
-function kopieerVorig() {
-  let vM = huidigMaand - 1, vJ = huidigJaar;
-  if (vM < 0) { vM = 11; vJ--; }
-  const oud = JSON.parse(localStorage.getItem(`budgetplan2-${vJ}-${vM}`) || 'null');
-  if (!oud) { toonToast('Geen plan gevonden voor vorige maand.'); return; }
-  const huidig = laad();
-  if ((huidig.in.length || huidig.uit.length) && !confirm('Huidige inhoud vervangen?')) return;
-  const nieuw = {
-    in:  oud.in.map(r  => ({ ...r, id: Date.now() + Math.random(), bedrag: 0 })),
-    uit: oud.uit.map(r => ({ ...r, id: Date.now() + Math.random(), bedrag: 0 }))
-  };
-  sla(nieuw);
-  teken();
-  toonToast('Gekopieerd van ' + MAANDEN[vM] + ' ✓');
-}
+  function maakRij(type, r) {
+    var cls = 'rij rij-' + type;
+    var badgeCls = r.freq === 'kwartaal' ? 'freq-badge kwartaal' : 'freq-badge maand';
+    var badgeTxt = r.freq === 'kwartaal' ? 'Per kwartaal' : 'Per maand';
+    var pmTxt = r.freq === 'kwartaal' ? '→ ' + fmt(perMaand(r.bedrag, r.freq)) + '/mnd' : '';
+    return '<div class="' + cls + '" data-id="' + r.id + '">' +
+      '<div class="rij-naam naam-cel">' + esc(r.naam) + '</div>' +
+      '<div class="rij-bedrag"><input class="b-input" type="number" value="' + (r.bedrag||'') + '" placeholder="0,00" min="0" step="0.01" inputmode="decimal"></div>' +
+      '<select class="freq-select">' +
+        '<option value="maand"' + (r.freq==='maand'?' selected':'') + '>Per maand</option>' +
+        '<option value="kwartaal"' + (r.freq==='kwartaal'?' selected':'') + '>Per kwartaal</option>' +
+      '</select>' +
+      '<div class="rij-per-maand">' + pmTxt + '</div>' +
+      '<button class="del-btn" data-type="' + type + '" data-id="' + r.id + '">✕</button>' +
+      '</div>';
+  }
 
-function toonToast(msg) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('zichtbaar');
-  setTimeout(() => el.classList.remove('zichtbaar'), 2200);
-}
+  function teken() {
+    document.getElementById('maandLabel').textContent = MAANDEN[maand] + ' ' + jaar;
+    var data = laad();
 
-function tekenTotalen(data) {
-  const totIn  = data.in.reduce((s, r) => s + r.bedrag, 0);
-  const totUit = data.uit.reduce((s, r) => s + r.bedrag, 0);
-  const saldo  = totIn - totUit;
-  document.getElementById('totaalIn').textContent  = fmt(totIn);
-  document.getElementById('totaalUit').textContent = fmt(totUit);
-  document.getElementById('labelIn').textContent   = fmt(totIn);
-  document.getElementById('labelUit').textContent  = fmt(totUit);
-  const el = document.getElementById('saldoBedrag');
-  el.textContent = fmt(saldo);
-  el.className = 'saldo-bedrag ' + (totIn === 0 && totUit === 0 ? 'nul' : saldo >= 0 ? 'ok' : 'over');
-}
+    var lijstIn = document.getElementById('lijstIn');
+    lijstIn.innerHTML = data['in'].length
+      ? data['in'].map(function(r) { return maakRij('in', r); }).join('')
+      : '<div class="leeg-rij">Nog geen inkomsten toegevoegd.</div>';
 
-function tekenLijst(type, data) {
-  const el = document.getElementById(type === 'in' ? 'lijstIn' : 'lijstUit');
-  if (!data[type].length) { el.innerHTML = ''; return; }
-  el.innerHTML = data[type].map(r => `
-    <div class="rij">
-      <div class="rij-naam">
-        <input type="text" value="${esc(r.naam)}" placeholder="Omschrijving"
-          onchange="updateNaam('${type}',${r.id},this.value)">
-      </div>
-      <div class="rij-bedrag">
-        <input type="number" value="${r.bedrag || ''}" placeholder="0,00"
-          min="0" step="0.01" inputmode="decimal"
-          onchange="updateBedrag('${type}',${r.id},this.value)">
-      </div>
-      <button class="del-btn" onclick="verwijder('${type}',${r.id})">✕</button>
-    </div>`).join('');
-}
+    var lijstUit = document.getElementById('lijstUit');
+    lijstUit.innerHTML = data['uit'].length
+      ? data['uit'].map(function(r) { return maakRij('uit', r); }).join('')
+      : '<div class="leeg-rij">Nog geen uitgaven toegevoegd.</div>';
 
-function teken() {
-  document.getElementById('maandLabel').textContent = MAANDEN[huidigMaand] + ' ' + huidigJaar;
-  const data = laad();
-  tekenTotalen(data);
-  tekenLijst('in', data);
-  tekenLijst('uit', data);
-}
+    herbereken();
 
-function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    // Events op bedragen en frequentie
+    document.querySelectorAll('.b-input, .freq-select').forEach(function(el) {
+      el.addEventListener('input', function() { herbereken(); slaHuidigOp(); });
+      el.addEventListener('change', function() { herbereken(); slaHuidigOp(); });
+    });
 
-// ── PDF ──
-function exportPDF() {
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-  const data = laad();
-  const maandNaam = MAANDEN[huidigMaand] + ' ' + huidigJaar;
-  const totIn  = data.in.reduce((s,r)=>s+r.bedrag,0);
-  const totUit = data.uit.reduce((s,r)=>s+r.bedrag,0);
-  const saldo  = totIn - totUit;
-  const W = doc.internal.pageSize.getWidth();
+    // Verwijder knoppen
+    document.querySelectorAll('.del-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        verwijder(btn.dataset.type, parseInt(btn.dataset.id));
+      });
+    });
+  }
 
-  // Header
-  doc.setFillColor(28,31,38);
-  doc.rect(0,0,W,28,'F');
-  doc.setTextColor(226,228,236); doc.setFontSize(18); doc.setFont('helvetica','bold');
-  doc.text('Budgetplan', 14, 12);
-  doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(122,127,146);
-  doc.text(maandNaam, 14, 20);
-  doc.text(new Date().toLocaleDateString('nl-NL'), W-14, 20, { align:'right' });
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
 
-  // Samenvattingsblokken
-  const bY=34, bH=20, bW=(W-28)/3;
-  [
-    ['INKOMSTEN', 'EUR ' + totIn.toFixed(2).replace('.',','), [30,200,126]],
-    ['UITGAVEN',  'EUR ' + totUit.toFixed(2).replace('.',','), [240,72,72]],
-    ['SALDO', (saldo<0?'- ':'')+'EUR '+Math.abs(saldo).toFixed(2).replace('.',','), saldo>=0?[30,200,126]:[240,72,72]]
-  ].forEach(([lbl, val, clr], i) => {
-    const x = 14 + i*bW;
-    doc.setFillColor(22,25,32); doc.roundedRect(x,bY,bW-4,bH,3,3,'F');
-    doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(122,127,146);
-    doc.text(lbl, x+4, bY+6);
-    doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(...clr);
-    doc.text(val, x+4, bY+14);
+  function toonToast(msg) {
+    var el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('zichtbaar');
+    setTimeout(function() { el.classList.remove('zichtbaar'); }, 2200);
+  }
+
+  // Navigatie
+  document.getElementById('btnVorig').addEventListener('click', function() {
+    maand--; if (maand < 0) { maand = 11; jaar--; } teken();
+  });
+  document.getElementById('btnVolgend').addEventListener('click', function() {
+    maand++; if (maand > 11) { maand = 0; jaar++; } teken();
   });
 
-  let y = bY + 26;
+  // Toevoegen
+  document.getElementById('btnInkomst').addEventListener('click', function() { voegToe('in'); });
+  document.getElementById('btnUitgave').addEventListener('click', function() { voegToe('uit'); });
+  document.getElementById('inBedrag').addEventListener('keydown', function(e) { if (e.key==='Enter') voegToe('in'); });
+  document.getElementById('uitBedrag').addEventListener('keydown', function(e) { if (e.key==='Enter') voegToe('uit'); });
+  document.getElementById('inNaam').addEventListener('keydown', function(e) { if (e.key==='Enter') document.getElementById('inBedrag').focus(); });
+  document.getElementById('uitNaam').addEventListener('keydown', function(e) { if (e.key==='Enter') document.getElementById('uitBedrag').focus(); });
 
-  // Inkomsten tabel
-  if (data.in.length) {
-    doc.autoTable({
-      startY: y,
-      head: [['Inkomsten', 'Bedrag']],
-      body: data.in.map(r => [r.naam, 'EUR ' + r.bedrag.toFixed(2).replace('.',',')]),
-      foot: [['Totaal inkomsten', 'EUR ' + totIn.toFixed(2).replace('.',',')]],
-      styles: { font:'helvetica', fontSize:9, cellPadding:3.5, textColor:[200,202,210], fillColor:[28,31,38], lineColor:[42,47,61], lineWidth:0.3 },
-      headStyles: { fillColor:[22,35,28], textColor:[30,200,126], fontStyle:'bold', fontSize:8 },
-      footStyles: { fillColor:[22,35,28], textColor:[30,200,126], fontStyle:'bold' },
-      alternateRowStyles: { fillColor:[22,25,32] },
-      columnStyles: { 0:{cellWidth:'auto'}, 1:{cellWidth:40, halign:'right'} },
-      margin: { left:14, right:14 },
+  // Kopieer vorige maand
+  document.getElementById('btnKopieer').addEventListener('click', function() {
+    var vM = maand-1, vJ = jaar;
+    if (vM < 0) { vM = 11; vJ--; }
+    var oud = null;
+    try { oud = JSON.parse(localStorage.getItem('bp3-' + vJ + '-' + vM)); } catch(e) {}
+    if (!oud) { toonToast('Geen plan gevonden voor vorige maand.'); return; }
+    var huidig = laad();
+    if ((huidig['in'].length || huidig['uit'].length) && !confirm('Huidige inhoud vervangen?')) return;
+    sla({
+      in:  oud['in'].map(function(r)  { return { id: Date.now()+Math.random(), naam: r.naam, bedrag: r.bedrag, freq: r.freq||'maand' }; }),
+      uit: oud['uit'].map(function(r) { return { id: Date.now()+Math.random(), naam: r.naam, bedrag: r.bedrag, freq: r.freq||'maand' }; })
     });
-    y = doc.lastAutoTable.finalY + 6;
-  }
+    teken();
+    toonToast('Gekopieerd van ' + MAANDEN[vM] + ' \u2713');
+  });
 
-  // Uitgaven tabel
-  if (data.uit.length) {
-    doc.autoTable({
-      startY: y,
-      head: [['Uitgaven', 'Bedrag']],
-      body: data.uit.map(r => [r.naam, 'EUR ' + r.bedrag.toFixed(2).replace('.',',')]),
-      foot: [['Totaal uitgaven', 'EUR ' + totUit.toFixed(2).replace('.',',')]],
-      styles: { font:'helvetica', fontSize:9, cellPadding:3.5, textColor:[200,202,210], fillColor:[28,31,38], lineColor:[42,47,61], lineWidth:0.3 },
-      headStyles: { fillColor:[35,22,22], textColor:[240,72,72], fontStyle:'bold', fontSize:8 },
-      footStyles: { fillColor:[35,22,22], textColor:[240,72,72], fontStyle:'bold' },
-      alternateRowStyles: { fillColor:[22,25,32] },
-      columnStyles: { 0:{cellWidth:'auto'}, 1:{cellWidth:40, halign:'right'} },
-      margin: { left:14, right:14 },
+  // PDF
+  document.getElementById('btnPDF').addEventListener('click', function() {
+    slaHuidigOp();
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ orientation:'portrait', unit:'mm', format:'a4' });
+    var data = laad();
+    var maandNaam = MAANDEN[maand] + ' ' + jaar;
+
+    var totIn  = data['in'].reduce(function(s,r)  { return s + perMaand(r.bedrag, r.freq||'maand'); }, 0);
+    var totUit = data['uit'].reduce(function(s,r) { return s + perMaand(r.bedrag, r.freq||'maand'); }, 0);
+    var saldo  = totIn - totUit;
+    var W = doc.internal.pageSize.getWidth();
+
+    doc.setFillColor(28,31,38);
+    doc.rect(0,0,W,28,'F');
+    doc.setTextColor(226,228,236); doc.setFontSize(18); doc.setFont('helvetica','bold');
+    doc.text('Budgetplan', 14, 12);
+    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(122,127,146);
+    doc.text(maandNaam, 14, 20);
+    doc.text(new Date().toLocaleDateString('nl-NL'), W-14, 20, { align:'right' });
+
+    var bY=34, bH=20, bW=(W-28)/3;
+    [
+      ['INKOMSTEN/MND', 'EUR '+totIn.toFixed(2).replace('.',','), [30,200,126]],
+      ['UITGAVEN/MND',  'EUR '+totUit.toFixed(2).replace('.',','), [240,72,72]],
+      ['OVERBLIJFT',    (saldo<0?'- ':'')+'EUR '+Math.abs(saldo).toFixed(2).replace('.',','), saldo>=0?[30,200,126]:[240,72,72]]
+    ].forEach(function(item, i) {
+      var x = 14+i*bW;
+      doc.setFillColor(22,25,32); doc.roundedRect(x,bY,bW-4,bH,3,3,'F');
+      doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(122,127,146);
+      doc.text(item[0], x+4, bY+6);
+      doc.setFontSize(12); doc.setFont('helvetica','bold'); doc.setTextColor(item[2][0],item[2][1],item[2][2]);
+      doc.text(item[1], x+4, bY+14);
     });
-  }
 
-  // Footer
-  const pH = doc.internal.pageSize.getHeight()-8;
-  doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(60,65,80);
-  doc.text('Budgetplan  |  '+maandNaam, 14, pH);
-  doc.text('Pagina 1', W-14, pH, { align:'right' });
+    var y = bY+26;
 
-  doc.save('budgetplan-'+MAANDEN[huidigMaand].toLowerCase()+'-'+huidigJaar+'.pdf');
-  toonToast('PDF opgeslagen ✓');
-}
+    if (data['in'].length) {
+      doc.autoTable({
+        startY: y,
+        head: [['Inkomsten','Frequentie','Bedrag','Per maand']],
+        body: data['in'].map(function(r) {
+          var pm = perMaand(r.bedrag, r.freq||'maand');
+          return [
+            r.naam,
+            r.freq==='kwartaal' ? 'Per kwartaal' : 'Per maand',
+            'EUR '+r.bedrag.toFixed(2).replace('.',','),
+            r.freq==='kwartaal' ? 'EUR '+pm.toFixed(2).replace('.',',') : '-'
+          ];
+        }),
+        foot: [['Totaal inkomsten per maand','','','EUR '+totIn.toFixed(2).replace('.',',')]],
+        styles: { font:'helvetica', fontSize:9, cellPadding:3.5, textColor:[200,202,210], fillColor:[28,31,38], lineColor:[42,47,61], lineWidth:0.3 },
+        headStyles: { fillColor:[22,35,28], textColor:[30,200,126], fontStyle:'bold', fontSize:8 },
+        footStyles: { fillColor:[22,35,28], textColor:[30,200,126], fontStyle:'bold' },
+        alternateRowStyles: { fillColor:[22,25,32] },
+        columnStyles: { 0:{cellWidth:'auto'}, 1:{cellWidth:28}, 2:{cellWidth:30,halign:'right'}, 3:{cellWidth:30,halign:'right'} },
+        margin: { left:14, right:14 },
+      });
+      y = doc.lastAutoTable.finalY+6;
+    }
 
-teken();
+    if (data['uit'].length) {
+      doc.autoTable({
+        startY: y,
+        head: [['Uitgaven','Frequentie','Bedrag','Per maand']],
+        body: data['uit'].map(function(r) {
+          var pm = perMaand(r.bedrag, r.freq||'maand');
+          return [
+            r.naam,
+            r.freq==='kwartaal' ? 'Per kwartaal' : 'Per maand',
+            'EUR '+r.bedrag.toFixed(2).replace('.',','),
+            r.freq==='kwartaal' ? 'EUR '+pm.toFixed(2).replace('.',',') : '-'
+          ];
+        }),
+        foot: [['Totaal uitgaven per maand','','','EUR '+totUit.toFixed(2).replace('.',',')]],
+        styles: { font:'helvetica', fontSize:9, cellPadding:3.5, textColor:[200,202,210], fillColor:[28,31,38], lineColor:[42,47,61], lineWidth:0.3 },
+        headStyles: { fillColor:[35,22,22], textColor:[240,72,72], fontStyle:'bold', fontSize:8 },
+        footStyles: { fillColor:[35,22,22], textColor:[240,72,72], fontStyle:'bold' },
+        alternateRowStyles: { fillColor:[22,25,32] },
+        columnStyles: { 0:{cellWidth:'auto'}, 1:{cellWidth:28}, 2:{cellWidth:30,halign:'right'}, 3:{cellWidth:30,halign:'right'} },
+        margin: { left:14, right:14 },
+      });
+    }
+
+    var pH = doc.internal.pageSize.getHeight()-8;
+    doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(60,65,80);
+    doc.text('Budgetplan  |  '+maandNaam, 14, pH);
+    doc.text('Pagina 1', W-14, pH, { align:'right' });
+    doc.save('budgetplan-'+MAANDEN[maand].toLowerCase()+'-'+jaar+'.pdf');
+    toonToast('PDF opgeslagen \u2713');
+  });
+
+  teken();
+})();
 </script>
 </body>
 </html>
